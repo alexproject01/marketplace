@@ -15,7 +15,22 @@ from django.contrib.auth.views import LoginView, LogoutView
 from .tasks import send_verif_link
 from coreapp.utils import AddToCart, generate_random_string
 from repositories.cart_repository import RepCart
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
+from django.http import HttpResponse
+from django.contrib.sites.shortcuts import get_current_site
+messages_dict = {
+    'reg_success': _(
+        'You have successfully registered. '
+        '\nThe account activation link has been emailed to you.'
+        '\n You must confirm your account within 72 hours.'),
+    'pass_link': _('Link to change your password '
+                   'was sent to your email address'),
+    'pass_change_success': _('Your password has been successfully changed'),
+    'activate_error': _('An error has occurred. '
+                        'The activation period has expired'
+                        '\nTry registering again.'),
+    'email_confirm': _('Email confirmation on')
+}
 
 
 class UserLoginView(LoginView):
@@ -26,17 +41,23 @@ class UserLoginView(LoginView):
     form_class = UserLoginForm
     redirect_authenticated_user = True
 
-    def form_valid(self, form):
+    def form_valid(self, form: UserLoginForm):
+        """
+        Метод, вызываемый при валидации формы
+        """
         super().form_valid(form)
         session_products = self.request.session.get('products')
         if self.request.user.is_authenticated and session_products:
             # если в сессии есть продукты
             AddToCart.move_from_session(self.request.user, session_products)
-            # добавление товаров в продукты
+            # добавление товаров в корзину пользователя из сессии
         return HttpResponseRedirect(self.get_success_url())
 
 
 class UserLogoutView(LogoutView):
+    """
+    Выход пользователя из учётной записи
+    """
     next_page = '/'
 
 
@@ -50,52 +71,50 @@ class UserSignUpView(CreateView):
     success_url = reverse_lazy('authapp:login')
     rep_cart = RepCart()
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs) \
+            -> HttpResponse:
+        """
+        Метод для отображения страницы регистрации и формы
+        """
         form = self.form_class(data=request.GET)
         if request.user.is_authenticated:
             return HttpResponseRedirect(reverse('coreapp:index'))
         return render(request, self.template_name, {'form': form})
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs) -> HttpResponse:
         form = self.form_class(data=request.POST)
         if form.is_valid():  # форма прошла валидацию
             user = form.save(commit=False)
             user.is_active = False  # деактивация пользователя
             user.activation_key = generate_random_string()
             user.save()
+            current_site = get_current_site(request)
+            site_name = current_site.name
             protocol = request.scheme
-            domain = request.META['HTTP_HOST']
-            session_products = request.session.get('products')
-            if session_products:  # если в сессии есть продукты
-                AddToCart.move_from_session(user, session_products)
-            send_verif_link.delay(protocol, domain, user.email,
+            domain = current_site.domain
+            send_verif_link.delay(protocol, domain, site_name, user.email,
                                   user.activation_key,
                                   user.first_name, user.last_name)
             # ссылка создана и отправлено сообщение
-            messages.success(request, _(
-                'You have successfully registered. '
-                '\nThe account activation link has been emailed to you.'
-                '\n You must confirm your account within 72 hours.'))
+            messages.success(request, messages_dict['reg_success'])
             return HttpResponseRedirect(reverse('authapp:login'))
         else:  # при наличии ошибок в форме
-            messages.set_level(request, messages.ERROR)
             messages.error(request, *list(form.errors.values()))
         return render(request, self.template_name, {'form': form})
 
 
-def verify_user(request, *args, **kwargs):
+def verify_user(request, **kwargs) -> HttpResponse:
     """
     Активация учетной записи
     :return: Response
     :rtype: HttpResponse
     """
     if request.method == 'GET':
-        try:
-            email = kwargs.get('email')  # мейл из запроса
-            activate_key = kwargs.get('key')  # ключ из запроса
-            user = User.objects.get(email=email)
-            if user and user.activation_key == activate_key and \
-                    not user.is_activation_key_expires:
+        email = kwargs.get('email')  # мейл из запроса
+        activate_key = kwargs.get('key')  # ключ из запроса
+        user = User.objects.get(email=email)
+        if user and user.activation_key == activate_key:
+            if not user.is_activation_key_expires:
                 # если еще не прошло 72 часа
                 # с момента регистрации и ключи одинаковые
                 user.activation_key = ""
@@ -103,10 +122,10 @@ def verify_user(request, *args, **kwargs):
                 user.activation_key_expires = None
                 user.save()
                 login(request, user)  # вход в учетную запись
-        except Exception:
-            messages.error(request, _('An error has occurred. '
-                                      'The activation period has expired'
-                                      '\nTry registering again.'))
+                session_products = request.session.get('products')
+                AddToCart.move_from_session(user, session_products)
+            else:
+                messages.error(request, messages_dict['activate_error'])
     return HttpResponseRedirect(reverse('coreapp:index'))
 
 
@@ -123,10 +142,10 @@ class UserPassResetView(PasswordResetView):
     success_url = reverse_lazy('authapp:login')
 
     def form_valid(self, form):
-        messages.success(self.request,
-                         _('Link to change your password '
-                           'was sent to your email address')
-                         )
+        """
+        Метод, вызываемый при валидации формы
+        """
+        messages.success(self.request, messages_dict['pass_link'])
         return super().form_valid(form)
 
 
@@ -139,7 +158,8 @@ class UserPassChangeView(PasswordResetConfirmView):
     success_url = reverse_lazy('authapp:login')
 
     def form_valid(self, form):
-        messages.success(self.request,
-                         _('Your password has been successfully changed')
-                         )
+        """
+        Метод, вызываемый при валидации формы
+        """
+        messages.success(self.request, messages_dict['pass_change_success'])
         return super().form_valid(form)

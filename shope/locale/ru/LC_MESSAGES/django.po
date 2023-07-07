@@ -6,44 +6,45 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-03 21:18+0300\n"
+"POT-Creation-Date: 2023-07-06 20:56+0300\n"
+"POT-Creation-Date: 2023-07-06 22:23+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%"
-"100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #: .\authapp\apps.py:9
 msgid "Users"
 msgstr "Пользователи"
 
-#: .\authapp\forms.py:80 .\authapp\forms.py:128
+#: .\authapp\forms.py:71 .\authapp\forms.py:127
 #: .\templates\profileapp\profileAvatar.html:82
 msgid "Password"
 msgstr "Пароль"
 
-#: .\authapp\forms.py:82 .\authapp\forms.py:130
+#: .\authapp\forms.py:73 .\authapp\forms.py:129
 #: .\templates\profileapp\profileAvatar.html:87
 msgid "Password confirmation"
 msgstr "Подтверждение пароля"
 
-#: .\authapp\forms.py:83 .\templates\orderapp\oneorder.html:42
+#: .\authapp\forms.py:74 .\templates\orderapp\oneorder.html:42
 #: .\templates\productsapp\detailed_discount.html:24
 #: .\templates\productsapp\detailed_discount.html:90
 #: .\templates\productsapp\detailed_seller.html:23
 msgid "Name"
 msgstr "Имя"
 
-#: .\authapp\forms.py:84
+#: .\authapp\forms.py:75
 msgid "Surname"
 msgstr "Фамилия"
 
-#: .\authapp\forms.py:85
+#: .\authapp\forms.py:76
 msgid "Middle name"
 msgstr "Отчество"
 
@@ -59,11 +60,11 @@ msgstr "отчество"
 msgid "email address"
 msgstr "адрес электронной почты"
 
-#: .\authapp\tasks.py:30
+#: .\authapp\tasks.py:28 .\authapp\views.py:32
 msgid "Email confirmation on"
 msgstr "Подтверждение электронной почты на"
 
-#: .\authapp\views.py:76
+#: .\authapp\views.py:23
 msgid ""
 "You have successfully registered. \n"
 "The account activation link has been emailed to you.\n"
@@ -73,21 +74,21 @@ msgstr ""
 "Ссылка для активации аккаунта была отправлена вам по электронной почте.\n"
 " Вы должны подтвердить свой аккаунт в течение 72 часов."
 
-#: .\authapp\views.py:107
+#: .\authapp\views.py:26
+msgid "Link to change your password was sent to your email address"
+msgstr "Ссылка для смены пароля отправлена на вашу электронную почту"
+
+#: .\authapp\views.py:28
+msgid "Your password has been successfully changed"
+msgstr "Ваш пароль был успешно изменён"
+
+#: .\authapp\views.py:29
 msgid ""
 "An error has occurred. The activation period has expired\n"
 "Try registering again."
 msgstr ""
 "Произошла ошибка. Срок активации истек\n"
 ".Попробуйте зарегистрироваться еще раз."
-
-#: .\authapp\views.py:127
-msgid "Link to change your password was sent to your email address"
-msgstr "Ссылка для смены пароля отправлена на вашу электронную почту"
-
-#: .\authapp\views.py:143
-msgid "Your password has been successfully changed"
-msgstr "Ваш пароль был успешно изменён"
 
 #: .\cartapp\models\cart.py:16 .\orderapp\models.py:18
 #: .\paymentapp\models.py:17 .\paymentapp\models.py:52
@@ -249,8 +250,7 @@ msgstr "предметы заказа"
 
 #: .\paymentapp\apps.py:8 .\templates\orderapp\historyorder.html:56
 #: .\templates\orderapp\oneorder.html:80 .\templates\orderapp\order.html:155
-#: .\templates\paymentapp\payment.html:6
-#: .\templates\paymentapp\payment.html:18
+#: .\templates\paymentapp\payment.html:6 .\templates\paymentapp\payment.html:18
 #: .\templates\paymentapp\payment.html:23
 #: .\templates\paymentapp\paymentsomeone.html:6
 #: .\templates\paymentapp\paymentsomeone.html:18
@@ -438,7 +438,7 @@ msgstr "бесплатная доставка"
 
 #: .\productsapp\models\product.py:36
 msgid "limited"
-msgstr ""
+msgstr "ограниченный"
 
 #: .\productsapp\models\review.py:21
 msgid "text"
@@ -653,7 +653,7 @@ msgstr "Каталог"
 msgid "Comparison"
 msgstr "Сравнение"
 
-#: .\templates\base.html:157 .\templates\cartapp\cart.html:53
+#: .\templates\base.html:157 .\templates\cartapp\cart.html:54
 msgid "Administrative section"
 msgstr "Административный раздел"
 
@@ -661,7 +661,7 @@ msgstr "Административный раздел"
 msgid "Logout"
 msgstr "Выход"
 
-#: .\templates\base.html:171 .\templates\cartapp\cart.html:70
+#: .\templates\base.html:171 .\templates\cartapp\cart.html:72
 msgid "Show navigation"
 msgstr "Навигация"
 
@@ -745,8 +745,7 @@ msgid "Navigation"
 msgstr "Навигация"
 
 #: .\templates\base.html:748 .\templates\orderapp\historyorder.html:29
-#: .\templates\profileapp\account.html:27
-#: .\templates\profileapp\profile.html:5
+#: .\templates\profileapp\account.html:27 .\templates\profileapp\profile.html:5
 #: .\templates\profileapp\profile.html:29
 #: .\templates\profileapp\profileAvatar.html:14
 #: .\templates\profileapp\profileAvatar.html:19
@@ -765,7 +764,7 @@ msgstr "Контакты"
 msgid "Private Office"
 msgstr "Личный кабинет"
 
-#: .\templates\cartapp\cart.html:54
+#: .\templates\cartapp\cart.html:56
 msgid "Output"
 msgstr "Выйти"
 
@@ -781,18 +780,15 @@ msgstr "скидку на корзину"
 msgid "discount on a set of products"
 msgstr "скидку на фиксированный набор товаров"
 
-#: .\templates\cartapp\cart_ajax.html:31
-#: .\templates\cartapp\cart_ajax.html:103
+#: .\templates\cartapp\cart_ajax.html:31 .\templates\cartapp\cart_ajax.html:103
 msgid "Seller"
 msgstr "Продавцы"
 
-#: .\templates\cartapp\cart_ajax.html:76
-#: .\templates\cartapp\cart_ajax.html:161
+#: .\templates\cartapp\cart_ajax.html:76 .\templates\cartapp\cart_ajax.html:161
 msgid "No products in cart"
 msgstr "Нет товаров в корзине"
 
-#: .\templates\cartapp\cart_ajax.html:81
-#: .\templates\cartapp\cart_ajax.html:148
+#: .\templates\cartapp\cart_ajax.html:81 .\templates\cartapp\cart_ajax.html:148
 #: .\templates\orderapp\oneorder.html:144 .\templates\orderapp\order.html:207
 msgid "Total"
 msgstr "Итого"
@@ -806,28 +802,56 @@ msgid "Place an order"
 msgstr "Разместить заказ"
 
 #: .\templates\coreapp\button_to_clear_cache.html:6
-#, fuzzy
-#| msgid "All categories"
 msgid "Full cache reset"
-msgstr "Все категории"
+msgstr "Полный сброс кеша"
 
 #: .\templates\coreapp\button_to_clear_cache.html:7
 msgid "Categories cache reset"
-msgstr ""
+msgstr "Сброс кеша категорий"
 
 #: .\templates\coreapp\button_to_clear_cache.html:8
 msgid "Banners cache reset"
-msgstr ""
+msgstr "Сброс кеша баннеров"
 
 #: .\templates\coreapp\button_to_clear_cache.html:9
 msgid "Catalog cache reset"
-msgstr ""
+msgstr "Сброс кеша каталога"
 
 #: .\templates\coreapp\button_to_clear_cache.html:10
-#, fuzzy
-#| msgid "No products in cart"
 msgid "Top products cache reset"
-msgstr "Нет товаров в корзине"
+msgstr "Сброс кеша топа продуктов"
+
+#: .\templates\coreapp\button_to_clear_cache.html:11
+msgid "Products cache reset"
+msgstr "Сброс кеша продуктов"
+
+#: .\templates\coreapp\button_to_clear_cache.html:12
+msgid "Sellers cache reset"
+msgstr "Сброс кеша продавцов"
+
+#: .\templates\index.html:28
+msgid "Get Started"
+msgstr "Начать покупки"
+
+#: .\templates\index.html:64 .\templates\orderapp\historyorder.html:47
+msgid "from"
+msgstr "от"
+
+#: .\templates\index.html:106
+msgid "days"
+msgstr "дни"
+
+#: .\templates\index.html:112
+msgid "hours"
+msgstr "часы"
+
+#: .\templates\index.html:118
+msgid "mins"
+msgstr "мин"
+
+#: .\templates\index.html:124
+msgid "secs"
+msgstr "сек"
 
 #: .\templates\index.html:233 .\templates\productsapp\catalog.html:290
 #: .\templates\productsapp\product.html:90
@@ -861,13 +885,8 @@ msgstr "Просмотренные продукты"
 msgid "Order"
 msgstr "заказ"
 
-#: .\templates\orderapp\historyorder.html:47
-msgid "from"
-msgstr "от"
-
 #: .\templates\orderapp\historyorder.html:51
-#: .\templates\orderapp\order.html:137
-#: .\templates\productsapp\product.html:186
+#: .\templates\orderapp\order.html:137 .\templates\productsapp\product.html:186
 #: .\templates\profileapp\account.html:73
 msgid "Type of delivery"
 msgstr "Тип доставки"
@@ -878,8 +897,7 @@ msgid "Total cost"
 msgstr "Общая стоимость"
 
 #: .\templates\orderapp\historyorder.html:67
-#: .\templates\orderapp\oneorder.html:86
-#: .\templates\profileapp\account.html:91
+#: .\templates\orderapp\oneorder.html:86 .\templates\profileapp\account.html:91
 msgid "Status"
 msgstr "Статус"
 
@@ -892,6 +910,7 @@ msgid "Order date"
 msgstr "Дата заказа"
 
 #: .\templates\orderapp\oneorder.html:48
+#: .\templates\profileapp\profile.html:72
 msgid "Phone number"
 msgstr "Номер телефона"
 
@@ -1240,6 +1259,12 @@ msgstr "Вы еще не сделали ни одного заказа"
 msgid "Recently viewed products"
 msgstr "просмотренные продукты"
 
+#: .\templates\profileapp\profile.html:53
+#: .\templates\profileapp\profileAvatar.html:54
+#| msgid "Avatar"
+msgid "Avatar"
+msgstr "Аватар"
+
 #: .\templates\profileapp\profile.html:55
 msgid "Upload a photo"
 msgstr "Загрузить фото"
@@ -1254,13 +1279,14 @@ msgstr "Вы можете изменить свой пароль здесь"
 msgid "Re-enter the password"
 msgstr "Повторно введите пароль"
 
+#: .\templates\profileapp\profile.html:100
+#| msgid "Edit profile"
+msgid "Update profile"
+msgstr "Сохранить профиль"
+
 #: .\templates\profileapp\profileAvatar.html:6
 msgid "Change profile"
 msgstr "Изменить профиль"
-
-#: .\templates\profileapp\profileAvatar.html:54
-msgid "Avatar"
-msgstr "Аватар"
 
 #: .\templates\profileapp\profileAvatar.html:59
 msgid "Choose an avatar"
@@ -1271,10 +1297,20 @@ msgid "Save"
 msgstr "Сохранить"
 
 #: .\templates\profileapp\viewed_products.html:65
-#, fuzzy
-#| msgid "No products in cart"
 msgid "No products viewed yet"
-msgstr "Нет товаров в корзине"
+msgstr "Пока нет просмотренных товаров"
+
+#, fuzzy
+#~| msgid "Avatar"
+#~ msgid "Avatar image"
+#~ msgstr "Аватар"
+
+#~ msgid "log in"
+#~ msgstr "Войти"
+
+#~| msgid "The field must contain at least 1 character"
+#~ msgid "The field must contain at least 50 characters"
+#~ msgstr "Поле должно содержать не менее 1 символа"
 
 #~ msgid "The address is"
 #~ msgstr "Адрес"
