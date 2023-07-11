@@ -1,7 +1,18 @@
-# ci/cd создание image на гитлабе
+## Online marketplace.
 
-# start project docker-compose.yaml
+ - Product catalog with filters and sort parameters.
+ - Detailed page for product with description, images, prices from different sellers and reviews 
+(authorized user can add a review)
+ - Products comparison
+ - Personal account for users (registration, email confirmation, log-in\out, password reset, 
+profile info, orders history)
+ - Cart for products (authorized and unauthorized user)
+ - Discount mechanism integrated with cart (discounts per product/cart/set)
+ - Order form, delivery price calculation
+ - Online payments with Yookassa (Yandex) API (a service for online payment acceptance)
+ - Administrative section for sellers
 
+## Installation
 
 # install pre-commit
     create - .pre-commit-config.yaml
